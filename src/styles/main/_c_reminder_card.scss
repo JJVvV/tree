@@ -1,0 +1,28 @@
+//弹出提示框
+.reminder-card{
+  width: 300px;
+  min-height: 100px;
+  color: $light-base;
+  border-radius: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+  .icon-glyph-167{
+    position: absolute;
+    right: 10px;
+    font-size: 20px;
+    opacity: 0.8;
+    cursor: pointer;
+    &:hover{opacity: 1;}
+  }
+  .text-wrapper{
+    display: table;
+    width: 100%;
+    height: 100%;
+  }
+  .text{
+    display: table-cell;
+    vertical-align: middle;
+  }
+}

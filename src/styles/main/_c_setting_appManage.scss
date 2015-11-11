@@ -1,0 +1,208 @@
+//设置页面，应用管理
+
+//顶部切换按钮
+.setting-handle-wrapper {
+  width: 250px;
+}
+
+.setting-handle-title-item {
+  text-align: center;
+  border-bottom: 2px solid #fff;
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  font-size: 16px;
+  float: left;
+  width: 50%;
+  padding: 25px 0 10px; //设置页面顶部审批&日程
+  &:hover {
+    border-bottom-color: $blue-base;
+  }
+}
+
+.setting-handle-title-item.active {
+  border-bottom-color: $blue-base;
+}
+
+//审批部分
+.half-box {
+  width: 50%;
+  float: left;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.chat-content .half-box {
+  padding: 0 20px;
+  &:first-child {
+    padding-left: 0px;
+  }
+  &:last-child {
+    padding-right: 0px;
+  }
+}
+
+.setting-maintitle {
+  //公司假期设置&会议室管理
+  font-size: 14px;
+  padding: 10px 0;
+  margin-right: 20px;//不安分的滚动条
+  i.icon-glyph-121 {
+    margin-right: 5px;
+    font-size: 18px;
+    vertical-align: text-bottom;
+  }
+}
+
+.setting-approval-line {
+  border-bottom: 1px dashed $gray-dark;
+  padding: 14px 0 10px;
+  font-size: 14px;
+  margin-right: 20px;//不安分的滚动条
+  .save-btn {
+    width: 25%;
+    box-sizing: border-box;
+  }
+  i {
+    vertical-align: middle;
+    cursor: pointer;
+  }
+  i.icon-glyph-77 {
+    font-size: 18px;
+    opacity: 0;
+    color: $gray-dark;
+    float: right;
+    margin-top: 6px;
+    margin-left: 20px;
+  }
+  i.icon-glyph-110 {
+    font-size: 17px;
+    margin-top: 4px;
+    opacity: 0;
+    margin-right: 10px;
+  }
+  //删除按钮
+  .task-switch {
+    margin-right: 45px;
+  }
+  i.icon-toggle-off {
+    font-size: 30px;
+    color: $gray-dark;
+    float: right;
+    margin-top: -3px;
+  }
+
+  .icon-trash-empty{
+    font-size: 20px;
+    line-height: 25px;
+    margin-left: 20px;
+    color: $red-base;
+    opacity: 0;
+  }
+  i.icon-toggle-on {
+    color: $blue-base;
+    font-size: 30px;
+    float: right;
+    margin-top: -3px;
+  }
+  &:hover .icon-glyph-77, &:hover .icon-glyph-110,&:hover .icon-trash-empty {
+    opacity: 1;
+  }
+  &:hover {
+    background-color: #e5f4fe;
+//    margin: 0px -20px;
+//    padding: 14px 20px 10px;
+  }
+}
+
+.half-box{
+  height: 100%;
+  padding: 15px 20px;
+  &:first-child{
+    padding-right: 0;
+    border-right: 1px solid $gray-light;
+    .setting-approval-title {
+      .form-feedback.form-c,.form-c {
+        width: 82% !important;
+        padding-left: 35px !important;
+      }
+    }
+  }
+  &:last-child{
+    padding-right: 0;
+  }
+}
+
+.add-line {
+  border-bottom: 0;
+  padding: 20px 0 10px;
+  &:hover {
+    background-color: $light-base;
+    padding: 20px 0 10px;
+//    margin-right: 20px;
+  }
+}
+
+.setting-approval-title {
+  color: $gray-darker;
+  display: inline-block;
+  width: 25%;
+  @extend %ellipsis;
+  i.icon-glyph-89, i.icon-glyph-226 {
+    font-size: 20px;
+    color: $gray-dark;
+    vertical-align: baseline;
+    margin-right: 10px;
+    cursor: auto;
+  }
+
+  //添加假期的输入框
+  .form-c {
+//    padding-left: 35px !important;
+    width: 82% !important;
+  }
+  //添加会议室的输入框
+  .feedback {
+    border-right: 0 !important;
+    font-size: 20px !important;
+    color: $gray-light !important;
+  }
+}
+
+.setting-approval-title-top{
+  color: #56646d;
+  display: inline-block;
+  width: 20.5%;
+  margin-right: 4.5%;
+}
+
+.setting-approval-detail {
+  display: inline-block;
+  width: 45%;
+  color: $gray-darker;
+  @extend %ellipsis;
+}
+.setting-approval-detail-top{
+  display: inline-block;
+  width: 45%;
+  color: $gray-darker;
+}
+
+//导入法定节加日
+.add-holiday-gap {
+  //加在half-box上的空隙
+  margin-bottom: 50px;
+}
+
+.wrapper-add-legal-holiday {
+  .btn-default {
+    margin-right: 15px;
+  }
+}
+
+.delate-user{
+  padding: 20px;
+  float:right ;
+  color: $gray-dark;
+  cursor: pointer;
+}

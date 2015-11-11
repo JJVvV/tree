@@ -1,0 +1,220 @@
+//用户个人设置
+.user-setting-handle-wrapper {
+  width: 433px;
+  .setting-handle-title-item {
+    width: 33.3%;
+    font-size: 18px;
+  }
+}
+
+.basic-data-wrapper {
+  padding: 75px 20px 20px 20px;
+  .btn-lg {
+    width: 157px;
+    margin-left: 310px;
+    box-sizing: border-box;
+  }
+}
+
+.user-avatar-upload {
+  //大的上传头像
+  margin-right: 50px;
+  background-color: $gray-dark;
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  img {
+    width: 150px;
+    height: 150px;
+  }
+  .bottom-mark {
+    width: 100%;
+    height: 38px;
+    background-color: rgba(86, 100, 109, 0.8);
+    text-align: center;
+    color: $light-base;
+    position: absolute;
+    bottom: 0px;
+    cursor: pointer;
+    span {
+      line-height: 38px;
+      font-size: 12px
+    }
+    &:hover{ background-color: rgba(86, 100, 109, 1);}
+  }
+
+}
+
+//上传头像右侧的修改输入框
+.user-update-input-group {
+  display: inline-block;
+  width: 40%;
+  border-right: 1px solid $gray-light;
+  vertical-align: top;
+  padding: 20px 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  margin-top: -20px;
+}
+
+.user-update-input-line {
+  margin-bottom: 20px;
+  .title, .detail, .change-btn {
+    display: inline-block;
+    @extend %ellipsis;
+  }
+  .title {
+    //    width: 22.5%;
+    width: 90px;
+    float: left;
+    margin-top: 5px;
+    color: $gray-darker;
+  }
+  .detail {
+    float: left;
+    //    width: 57%;
+    width: calc(100% - 170px);
+  }
+  .icon-glyph-168, .icon-glyph-167 {
+    margin-top: 10px;
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 18px;
+  }
+  .icon-glyph-168 {
+    color: $green-base;
+  }
+  .icon-glyph-167 {
+    color: $red-base;
+  }
+}
+
+.user-info-wrapper {
+  display: inline-block;
+  float: right;
+  vertical-align: top;
+  width: calc(100% - 200px - 41%);
+  box-sizing: border-box;
+  padding: 5px 50px;
+  .user-info-line {
+    margin-bottom: 35px;
+    font-size: 14px;
+    .title, .detail {
+      color: $gray-darker;
+      display: inline-block;
+      float: left;
+      width: 50%;
+    }
+    .detail {
+      color: $gray-base;
+    }
+  }
+}
+
+.share-btn-group {
+  position: absolute;
+  bottom: 40px;
+  padding: 30px 30px 0px 30px;
+  margin: 0 20px;
+  width: 100%;
+  border-top: 1px solid $gray-light;
+  .btn-box {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    display: inline-block;
+    margin-left: 17px;
+    cursor: pointer;
+    &:first-child {
+      margin-left: 25px;
+    }
+    i {
+      color: $light-base;
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
+  .facebook {
+    background-color: #3a5898
+  }
+  .twitter {
+    background-color: #00acee;
+  }
+  .mail {
+    background-color: #fab56b;
+  }
+  .link {
+    background-color: $blue-base;
+  }
+}
+
+//用户密码修改模块
+.user-password-line {
+  margin-bottom: 17px;
+  .title {
+    width: 25%;
+    display: inline-block;
+    float: left;
+    font-size: 14px;
+    line-height: 40px;
+    color: $gray-darker;
+  }
+  .detail {
+    width: 75%;
+    display: inline-block;
+    float: left;
+    font-size: 14px;
+  }
+  .icon-glyph-107 {
+    border-left: 0 !important;
+    font-size: 14px !important;
+    cursor: pointer;
+    margin-top: 1px;
+    padding-left: 0 !important;
+  }
+  .icon-glyph-107.active {
+    color: $blue-base;
+  }
+  .check-password-item {
+    width: 33.3%;
+    float: left;
+    display: inline-block;
+//    margin-top: 5px;
+    .circle {
+      width: 8px;
+      height: 8px;
+      margin-right: 5px;
+      border-radius: 50%;
+      background-color: $gray-dark;
+      vertical-align: baseline;
+      display: inline-block;
+    }
+    .text{color: $gray-dark; font-size: 12px;line-height: 1;}
+
+  }
+  .check-password-item.active{
+    .circle{background-color: $blue-base;}
+    .text{color: $gray-darker;}
+  }
+  .check-password-item-wrapper{margin-top: 5px;}
+  .send-message{font-size: 12px;color: $gray-dark;margin-top: 5px;display: block;}
+  .btn-comfirm{margin: 15px 0 0 0;}
+  .form-c{padding-right: 30px!important;}
+}
+
+.check-btn-group{
+  margin-top: 17px;
+  .check-btn-item{
+    width: 50%;
+    box-sizing: border-box;
+    float: left;
+    display: inline-block;
+    .btn-send{width: 100%;box-sizing: border-box;color: $gray-darker;&:hover{color: $light-base;}}
+    &:first-child{padding-right: 10px;}
+    &:last-child{padding-left: 10px;}
+  }
+}

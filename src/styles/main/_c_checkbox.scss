@@ -1,0 +1,105 @@
+// .btn-gruop
+
+//input[type="checkbox"]{
+//  -webkit-appearance: none;
+//  &:before{
+//    font-family: $icon-name;
+//  }
+//  &:before{
+//    content: '\e915';
+//    display:inline-block;
+//  }
+//  &:checked:before{
+//    content: '\e914';
+//    color:$blue-base;
+//  }
+//}
+
+//input[type="checkbox"],
+//input[type="radio"] {
+//    position: absolute;
+//    clip: rect(0,0,0,0);
+//
+//    & + label:before {
+//        font-family: $icon-name;
+//        content: '\e915';
+//        display: inline-block;
+//        vertical-align: middle;
+//        line-height: 1;
+//        font-size: 18px;
+//        color: $gray-light;
+//        cursor: pointer;
+//    }
+//
+//    & + label:before {
+//        color: $gray-alpha;
+//    }
+//
+//    &:checked + label:before {
+//        content: '\e914';
+//        color: $blue-base;
+//    }
+//
+//    &.checked + label:before {
+//        content: '\e914';
+//        color: $blue-base;
+//    }
+//}
+
+%checkbox{
+  width:20px;
+  height:20px;
+  background: url("/public/img/check.png") no-repeat 0 0;
+
+}
+
+@for $i from 1 through 9 {
+  %checked#{$i} {
+    background-position: 0px #{-($i - 1) * 25}px;
+  }
+}
+
+
+input[type="checkbox"],
+input[type="radio"] {
+  -webkit-appearance: none;
+  outline:none;
+  @extend %checkbox;
+}
+
+input[type="checkbox"]{
+  @extend %checked1;
+
+  &:hover{
+    @extend %checked2;
+  }
+
+  &:checked{
+    @extend %checked3;
+  }
+
+  &[disabled]{
+    @extend %checked4;
+  }
+
+  &.half{
+    @extend %checked5;
+  }
+}
+
+input[type="radio"]{
+  @extend %checked6;
+
+  &:hover{
+    @extend %checked7;
+  }
+
+  &:checked{
+    @extend %checked8;
+  }
+
+  &[disabled]{
+    @extend %checked9;
+  }
+
+}

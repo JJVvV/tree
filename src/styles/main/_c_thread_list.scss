@@ -1,0 +1,56 @@
+// work-searck
+
+.thread-list{
+  padding:0;
+}
+
+.thread-item{
+  @extend %thread-item;
+  padding:9px 20px 8px;
+  display:block;
+  margin-top:-1px;
+  border-top:1px solid $gray-lighter;
+  border-bottom:1px solid $gray-lighter;
+  position:relative;
+  &:hover, &.active{
+    background: $gray-lighter;
+    border-color:$gray-light;
+    z-index:2;
+  }
+  &:hover{
+    .thread-item-remove{
+      display: block;
+    }
+  }
+
+  &:first-child{
+    border-top:none;
+    margin-top:0px;
+  }
+}
+
+.thread-item-avator{
+  //@extend %avator;
+
+
+  .circle-tip{
+    position:absolute;
+    right:-8px;
+    top:-8px;
+  }
+}
+
+.thread-item-info{
+  @extend %thread-item-info;
+}
+
+
+.thread-item-func{
+  @extend %thread-item-func;
+//  letter-spacing: 2px;
+}
+
+.thread-item-remove{
+  color: $red-base;
+  display: none;
+}

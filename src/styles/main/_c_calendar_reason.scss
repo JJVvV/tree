@@ -1,0 +1,71 @@
+//新建会议时填写原因
+.calendar-reason-box{
+  font-size: 12px;
+//  width: 300px;
+  height: 260px;
+  border-radius: 3px;
+  //alex
+//  box-shadow:0 0 10px $gray-dark;
+  .reason-header{
+    font-size: 14px;
+    .icon-glyph-167{font-size: 20px;margin-top: -3px; color: $gray-dark;cursor: pointer;&:hover{color: $blue-base;}}
+  }
+}
+
+.reason-header{
+  padding: 10px 15px;
+  line-height: 1;
+}
+
+.reason-body{
+  padding: 5px 15px;
+  height: 210px;
+  overflow: auto;
+}
+
+.reason-group{
+  border-bottom: 1px dashed $gray-light;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  &:last-child{
+    border-bottom:none;
+  }
+  .reason-avator{
+    float: left;
+    margin-right: 15px;
+  }
+}
+
+.reason-info{
+  overflow: hidden;
+
+
+
+  .icon{color: $gray-dark;vertical-align: middle;margin-right: 4px;}
+
+  .circle{
+    @extend %circle-tip;
+    padding: 0;
+    display: inline-block;
+    background-color: $blue-base;
+    width: 7px;
+    height: 7px;
+    margin-left: 2px;
+    margin-right: 6px;
+  }
+  }
+
+
+.reason-info-line {
+  line-height: 1;
+  margin-bottom: 5px;
+  span {
+    color: $gray-darker;
+    display: inline-block;
+//    width: 85%;
+    margin-right: 5px;
+    vertical-align: middle;
+    @extend %ellipsis;
+  }
+  .person{font-size: 14px;color: $gray-base;}
+}

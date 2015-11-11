@@ -1,0 +1,29 @@
+//存放布局
+html{
+  //overflow-x:hidden;
+  overflow:hidden;
+  //min-width: $global-min-width
+}
+html, body, #wrapper, .container, .page-container{
+  height:100%;
+}
+.container{
+  position:relative;
+  min-height: $global-min-height;
+  min-width:880px;
+}
+
+#wrapper{
+  font-size:$font-size-base;
+}
+
+.right-area{
+  width:500px;
+  float:right;
+  @media screen and (min-width: 1600px) {
+    width:650px;
+  }
+}
+.global-detail-area{
+  @extend %area;
+}

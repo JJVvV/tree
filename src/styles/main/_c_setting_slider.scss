@@ -1,0 +1,58 @@
+//设置页面的滑动窗口
+
+.setting-box-body{
+  padding: 20px;
+}
+
+
+ .create-approval-line{
+   margin-bottom: 17px;
+   .title{
+     display: inline-block;
+     width: 25%;
+     float: left;
+     font-size: 14px;
+     line-height: 40px;
+     color: $gray-darker;
+     @extend %ellipsis;
+   }
+   .detail{
+     display: inline-block;
+     width: 75%;
+     float: left;
+   }
+ }
+
+ .create-approval-partingline{
+   clear: both;
+   margin: 33px auto;
+   width: 100%;
+   height: 1px;
+   text-align: left;
+   border-bottom: 1px solid $gray-light;
+   span{
+     position: relative;
+     font-size: 12px;
+     color: $gray-dark;
+     top: -14px;
+     background-color: $light-base;
+     padding: 0 5px;
+   }
+ }
+
+ .create-approval-choose-box{
+   width: 25%;
+   display: inline-block;
+   float: left;
+   margin-bottom: 20px;
+   span{font-size: 14px;}
+   .icon-checkbox-a,.icon-checkbox-b{
+     font-size: 20px;
+     margin-right: 5px;
+     cursor: pointer;
+     display: none;
+   }
+   .icon-checkbox-a.active,.icon-checkbox-b.active{display: inline;}
+   .icon-checkbox-a{color: $blue-base;}
+   .icon-checkbox-b{color: $gray-dark;}
+ }
