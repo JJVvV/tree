@@ -5,137 +5,127 @@
 
 import React, { PropTypes , Children} from 'react'
 import classnames  from 'classnames';
-//import request from 'reqwest';
 import getTopNode from './utils/getTopNode.js';
 import {posLength, parentPos} from './utils/pos.js';
-
-
+import TreeNode from './TreeNode';
+import extend from './utils/extends';
 
 
 export default class Tree extends React.Component {
 
     static defaultProps = {
-        defaultCheckedKeys:[],
-        multiple:true
+        checkedKeys:[],
+        multiple:true,
+        expandedKeys: []
     }
 
     constructor(props){
         super(props);
 
-        this.state = {
-            collapsed:props.defaultCollapsed,
-            checkedKeys: this.props.multiple ? this.props.defaultCheckedKeys : [this.props.defaultCheckedKeys[0]]
-        }
+        //this.state = {
+        //    collapsed:props.defaultCollapsed,
+        //    checkedKeys: this.props.multiple ? this.props.defaultCheckedKeys : [this.props.defaultCheckedKeys[0]]
+        //}
+
+
+
+        this.allNodes = [];
     }
 
+    componentWillReceiveProps(props){
+        debugger;
 
-
-   componentWillReceiveProps(props){
-        this.setState({
-            collapsed:props.defaultCollapsed,
-            checkedKeys: props.multiple ?props.defaultCheckedKeys : [props.defaultCheckedKeys[0]]
-        });
     }
 
-    renderTreeNode(child, index, level=0){
+   //componentWillReceiveProps(props){
+   //     this.setState({
+   //         collapsed:props.defaultCollapsed,
+   //         checkedKeys: props.multiple ?props.defaultCheckedKeys : [props.defaultCheckedKeys[0]]
+   //     });
+   // }
 
-        const pos = child.key || `${level}-${index}`;
-        const key = pos;
-        let cloneProps = {
-            className: 'woqu',
-            root:this,
-            pos,
-            eventKey:pos,
-            checked: this.checkedKeys.indexOf(key) !== -1,
-            checkPart: this.checkPartKeys.indexOf(key) !== -1,
-            multiple:this.props.multiple,
-            key
-        }
-        return React.cloneElement(child, cloneProps);
-    }
 
-    loopChildren(children,callback){
-        const loop = (children, level) => {
-            Children.forEach(children, (item, index) => {
+    loopTreeData(children, callback){
+        const loop = (Children, level) => {
+            Children.forEach((item, index) => {
                 const pos = `${level}-${index}`;
-                const newChildren = item.props.children;
+                const newChildren = item.children;
+
+                callback(item, index, pos);
                 if(newChildren){
                     loop(newChildren, pos);
                 }
-                callback(item, index, pos);
             });
 
         }
         loop(children, 0);
     }
 
+
+
     handleCheckState(obj, checkedArr, multiple, event){
         let eve = false;
         if(typeof event === 'boolean'){
             eve = true;
         }
+
         checkedArr.forEach((pos) => {
-            Object.keys(obj).forEach((k) => {
-                if(multiple){
-                    if((posLength(k) > posLength(pos) && k.indexOf(pos) === 0) || (k === pos)){
-                        if(eve){
-                            obj[k].checked = event;
-                        }else{
-                            obj[k].checked = true;
-                        }
-                        for(var p in obj){
-                            obj[p].SHOW_ID === obj[k].SHOW_ID && (obj[p].checked = eve ? event : true, loop(p));
-                        }
-                    }
-                }else{
-                    if(posLength(k) === posLength(pos) && k.indexOf(pos) === 0){
-                        if(eve){
-                            obj[k].checked = event;
-                        }else{
-                            obj[k].checked = true;
-                        }
-                    }else{
-                        obj[k].checked = false;
-                    }
-                }
 
-            });
+            let loopUp = (obj, pos) => {
 
-            function loop(_pos) {
-                const pPos = parentPos(_pos);
+                let pPos = parentPos(pos);
                 const parentLen = posLength(pPos);
-                let siblings = 0;
-                let siblingsChecked = 0;
-                if(parentLen < 2){
-                    return;
-                }
-                Object.keys(obj).forEach((k) => {
-                    if(posLength(k) === posLength(_pos) && parentPos(k) === pPos){
-                        siblings++;
-                        if(obj[k].checked){
-                            siblingsChecked++
-                        }else if(obj[k].checkPart){
-                            siblingsChecked += 0.5;
-                        }
-                    }
-                });
                 let parentObj = obj[pPos];
-                if(siblingsChecked === 0){
+                if(parentLen < 2) return;
+                let i = 0;
+                let checkedNum = 0;
+                let cur;
+                while(cur = obj[`${pPos}-${i}`]){
+                    if(cur.checked){
+                        checkedNum++
+                    }else if(cur.checkPart){
+                        checkedNum += 0.5;
+                    }
+                    i++
+                }
+
+                if(checkedNum === 0){
                     parentObj.checked = false;
                     parentObj.checkPart= false;
-                }else if(siblingsChecked === siblings){
+                }else if(checkedNum === i){
                     parentObj.checked = true;
                     parentObj.checkPart = false;
+
                 }else{
                     parentObj.checked = false;
                     parentObj.checkPart = true;
                 }
 
-                loop(pPos);
-            }
-            loop(pos);
-        });
+                loopUp(obj, pPos);
 
+            }
+
+
+
+
+            let loopDown = (obj, pos, checked) => {
+                let i = 0;
+                let cur ;
+                while(cur = obj[`${pos}-${i}`]){
+                    cur.checked = checked;
+                    loopDown(obj, `${pos}-${i}`, checked);
+                    cur.checkPart = false;
+                    i++
+                }
+            }
+
+            loopDown(obj, pos, eve ? event : true);
+            loopUp(obj, pos);
+
+
+
+
+        });
     }
 
     handleCheck(treeNode){
@@ -143,127 +133,156 @@ export default class Tree extends React.Component {
         let tProps = treeNode.props;
         let checked = !tProps.checked;
 
-        if(tProps.checkPart){
-            checked = true;
-        }
 
         let pos;
+        let item = this.treeNodes[tProps.pos];
+        item.checked = checked;
+        if(item.checked) item.checkPart = false;
 
-        Object.keys(this.treeNodes).forEach((k) => {
-            const item = this.treeNodes[k];
-            if(item.key === tProps.pos && item.D_NAME == tProps.data.D_NAME){
-                item.checked = checked;
-                pos = k;
-            }
-        });
+        this.handleCheckState(this.treeNodes, [tProps.pos], this.props.multiple, checked);
+        let keys = this.getCheckedNodes();
 
-        this.handleCheckState(this.treeNodes, [pos], this.props.multiple, checked);
-        let keys = this.getCheckKeys();
-
-        this.checkedKeys = keys.checkedKeys;
-        this.checkPartKeys = keys.checkPartKeys;
 
         this.setState({
-            checkedKeys: keys.checkedKeys
+            //checkedKeys: keys.checkedKeys
         });
 
         if(typeof this.props.onCheck === 'function'){
             this.props.onCheck({
                 checked,
                 node: treeNode,
-                checkedKeys: keys.checkedChildrenKeys,
-                data: keys.checkedChildrenData,
-                checkedAllKeys:keys.checkedAllKeys
+                checkedNodes: keys.checkedNodes,
+                checkPartNodes: keys.checkPartNodes,
+                checkedData: keys.checkedData
             });
         }
     }
 
-    getCheckKeys(){
-        const checkedKeys = [];
-        const checkPartKeys = [];
-        const checkedChildrenKeys = [];
-        const checkPartChildrenKeys = [];
-        const checkedChildrenData = [];
-        const checkedAllKeys = [];
-        Object.keys(this.treeNodes).forEach((k) => {
-            const item = this.treeNodes[k];
+    getCheckedNodes(){
+        const checkedNodes = [];
+        const checkPartNodes = [];
+        const checkedData = [];
+
+        this.allNodes.forEach((item, index) => {
             if(item.checked){
-                checkedKeys.push(item.key);
-                checkedAllKeys.push(item.key);
-                item.section || (checkedChildrenKeys.push(item.key), checkedChildrenData.push(item));
+                checkedNodes.push(item.id);
+                checkedData.push(extend({}, item));
             }else if(item.checkPart){
-                checkPartKeys.push(item.key);
-                item.section || checkPartChildrenKeys.push(item.key);
+                checkPartNodes.push(item.id);
             }
-
-
-
         });
 
+
+
         return {
-            checkedKeys,
-            checkPartKeys,
-            checkedChildrenKeys,
-            checkPartChildrenKeys,
-            checkedChildrenData,
-            checkedAllKeys
+            checkedNodes,
+            checkPartNodes,
+            checkedData
         }
 
     }
 
-    componentDidMount(){
-        this.setState({});
+    getCheckedKeys(){
+        let {
+            multiple,
+            checkedKeys
+            } = this.props;
+
+        return  multiple ? checkedKeys: [checkedKeys[0]];
     }
 
-    render(){
-        //console.log('this.props.children', this.props.children);
-
+    beforeRender(){
         const {
             multiple
-        } = this.props;
+            } = this.props;
 
         this.treeNodes = {};
-        let checkedKeys = this.state.checkedKeys;
+        let checkedKeys = this.getCheckedKeys();
 
         const checkedPos = [];
-        this.loopChildren(this.props.children, (item, index, pos) => {
+        this.allNodes = [];
+        this.loopTreeData(this.props.tree, (item, index, pos) => {
 
-            const {
-                ...usefulItem,
-                children,
-                } = item.props.data;
-            let key = item.key || pos;
+            let key = pos;
             let checked = false;
-
-
+            let {
+                children,
+                ...others
+                } = item;
             if(checkedKeys.indexOf(key) !== -1){
                 checked = true;
                 checkedPos.push(pos);
             }
+
             this.treeNodes[pos] = {
                 checked,
-                key,
+                pos,
                 checkPart: false,
-                section: !!children,
-                ...usefulItem
-            }
+                section: item.children.length,
+                ...others
+            };
+
+            this.allNodes.push(this.treeNodes[pos]);
         });
 
         this.handleCheckState(this.treeNodes, getTopNode(checkedPos), multiple);
-        let keys = this.getCheckKeys();
 
-        this.checkedKeys = keys.checkedKeys;
-        this.checkPartKeys = keys.checkPartKeys;
 
-        this.newChildren = React.Children.map(this.props.children, this.renderTreeNode, this);
 
+    }
+
+    render(){
+
+
+        this.allNodes.length || this.beforeRender();
         return (
             <div className="tree">
-                {this.newChildren}
+                {this.renderTree(this.allNodes)}
             </div>
         );
     }
 
+    renderTree(tree){
+        var i=0, len=tree.length;
+        var usefulTree = [];
+        let parentCollapsed;
+
+        while(i<len){
+            if(tree[i].collapsed){
+                if(!parentCollapsed || tree[i].pos.indexOf(parentCollapsed.pos) !== 0){
+                    parentCollapsed = tree[i];
+                }
+            }
+            this.allNodes[i].show = (!parentCollapsed ||
+                                    tree[i].pos.indexOf(parentCollapsed.pos) !== 0 ||
+                                    tree[i] === parentCollapsed);
+
+           i++
+
+        }
+
+        return this.allNodes.map((item, i) => {
+            let collapsed = typeof item.collapsed === 'boolean' ? item.collapsed : false;
+                return item.show &&
+                    <TreeNode
+                        key={i}
+                        {...item}
+                        collapsed={collapsed}
+                        pos={item.pos}
+                        toggleCollapsed={this.onClick.bind(this, item, i)}
+                        handleCheck={::this.handleCheck}
+                    />
+        });
+
+    }
+
+    onClick(item,index, e){
+
+        let collapsed = item.collapsed;
+        this.allNodes[index].collapsed = !collapsed;
+        this.setState({});
+
+    }
 
 
 

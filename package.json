@@ -1,7 +1,7 @@
 {
-  "name": "Launchr",
+  "name": "React Tree",
   "version": "1.0.0",
-  "description": "a react datepicker",
+  "description": "a react tree",
   "scripts": {
     "start": "node server.js",
     "lint": "eslint src",
